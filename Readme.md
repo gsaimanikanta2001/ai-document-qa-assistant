@@ -17,7 +17,7 @@ A **Python + Streamlit** chat app with five assistant modes and single-document 
 ## Run locally
 
 1. Install Python 3 and run `pip install -r Requirements.txt`.
-2. Obtain an OpenAI API key. The current app reads the environment variable `OPEN_API_KEY` using a `.env` file at `C:\ai_search_assistant\.env`. Set that variable locally and update the hard-coded path in `app.py` for your machine. Do not commit your key or `.env`.
+2. Obtain an OpenAI API key. Create a local `.env` file beside `app.py` containing `OPEN_API_KEY=your_key_here`, or set that environment variable in your shell. Never commit the key or `.env`. Do not commit your key or `.env`.
 3. Run `streamlit run app.py`.
 4. Upload a text-based PDF or TXT document and select **Create Document Embeddings**, then ask a question. OpenAI API requests for embeddings and chat may incur charges.
 
@@ -31,9 +31,9 @@ Document text is sent to the OpenAI API for embeddings and retrieved chunks are 
 
 ## Limitations and next steps
 
-This is a small in-memory RAG demonstration, not a validated knowledge system. The interface does not display source citations or retrieval scores. It has no vector database, persistence, or documented answer-quality benchmark. The app asks the model to say when an answer is absent, but that prompt alone cannot guarantee grounded answers. Changing or re-uploading a document may leave earlier embeddings in session state; clear or rebuild them when switching documents.
+This is a small in-memory RAG demonstration, not a validated knowledge system. The interface does not display source citations or retrieval scores. It has no vector database, persistence, or documented answer-quality benchmark. The app asks the model to say when an answer is absent, but that prompt alone cannot guarantee grounded answers. The app rebuilds embeddings when a different document is uploaded; embeddings still live only in the current session.
 
-Next improvements: portable configuration, document-change invalidation, passage citations with page numbers, a small evaluation set with expected answers, and a deployment guide.
+Next improvements: passage citations with page numbers, a small evaluation set with expected answers, and a deployment guide.
 
 ## Skills shown
 
