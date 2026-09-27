@@ -17,7 +17,7 @@ A **Python + Streamlit** chat app with five assistant modes and single-document 
 ## Run locally
 
 1. Install Python 3 and run `pip install -r Requirements.txt`.
-2. Obtain an OpenAI API key. Create a local `.env` file beside `app.py` containing `OPEN_API_KEY=your_key_here`, or set that environment variable in your shell. Never commit the key or `.env`. Do not commit your key or `.env`.
+2. Obtain an OpenAI API key. Create a local `.env` file beside `app.py` containing `OPEN_API_KEY=your_key_here`, or set that environment variable in your shell. Never commit the key or `.env`.
 3. Run `streamlit run app.py`.
 4. Upload a text-based PDF or TXT document and select **Create Document Embeddings**, then ask a question. OpenAI API requests for embeddings and chat may incur charges.
 
