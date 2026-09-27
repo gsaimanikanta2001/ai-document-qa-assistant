@@ -144,6 +144,7 @@ if uploaded_file is not None:
         if st.sidebar.button("Create Document Embeddings"):
             with st.spinner("Creating embeddings..."):
                 st.session_state.chunk_embeddings = create_embeddings_for_chunks(document_chunks)
+                st.session_state.embedded_document = (uploaded_file.name, document_text)
             st.sidebar.success(
                 f"Embeddings created: {len(st.session_state.chunk_embeddings)}")
             
