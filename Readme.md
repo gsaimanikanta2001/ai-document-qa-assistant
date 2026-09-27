@@ -1,120 +1,40 @@
-# Sai AI Assistant — Multi-Mode AI Chatbot with Document Q&A
+# Sai AI Assistant | Document Q&A
 
-Sai AI Assistant is a multi-mode AI chatbot built using Python, Streamlit, and the OpenAI API. The application allows users to chat with an AI assistant, switch between different assistant modes, upload PDF or TXT documents, and ask questions based on the uploaded document using a Retrieval-Augmented Generation (RAG) workflow.
+A **Python + Streamlit** chat app with five assistant modes and single-document question answering. Users can upload a PDF or TXT file, extract its text, create embeddings, retrieve relevant chunks using cosine similarity, and send those chunks to an OpenAI chat model as context.
 
-This project was built to demonstrate practical skills in AI application development, document processing, embeddings, semantic search, and interactive web app design.
+![Document Q&A screen](Ai_search_assistant_q%24a.png)
 
-## Project Overview
+## What is implemented
 
-The goal of this project is to create a simple but useful AI assistant that can answer general questions and also respond based on uploaded documents.
+- General Assistant, Coding Tutor, Resume Helper, SQL Interview Coach, and Python Practice Coach modes
+- PDF text extraction with PyPDF and TXT upload
+- Overlapping, character-based chunks; `text-embedding-3-small` embeddings
+- Top-three cosine-similarity retrieval and an OpenAI chat completion
+- Streamlit chat history, model and temperature controls, and a clear-chat button
 
-Users can upload a PDF or TXT file, generate embeddings for the document, and ask questions about the content. The app retrieves the most relevant document chunks and sends them to the AI model as context, allowing the assistant to provide document-aware answers.
+[Inspect the application code](app.py) and [additional screenshots](Ai_search_assistant_welcomepage.png).
 
-If the answer is not available in the uploaded document, the assistant is instructed to clearly say that the information was not found in the document.
+## Run locally
 
-## Key Features
+1. Install Python 3 and run `pip install -r Requirements.txt`.
+2. Obtain an OpenAI API key. The current app reads the environment variable `OPEN_API_KEY` using a `.env` file at `C:\ai_search_assistant\.env`. Set that variable locally and update the hard-coded path in `app.py` for your machine. Do not commit your key or `.env`.
+3. Run `streamlit run app.py`.
+4. Upload a text-based PDF or TXT document and select **Create Document Embeddings**, then ask a question. OpenAI API requests for embeddings and chat may incur charges.
 
-* Built an interactive AI chatbot using Streamlit and OpenAI API
-* Added multiple assistant modes for different use cases
-* Supported PDF and TXT document upload
-* Extracted text from uploaded documents using PyPDF
-* Split document text into smaller overlapping chunks
-* Generated embeddings using OpenAI `text-embedding-3-small`
-* Implemented cosine similarity to compare user questions with document chunks
-* Retrieved the top relevant chunks for document-based question answering
-* Added RAG-style document context to improve answer accuracy
-* Included chat history using Streamlit session state
-* Added sidebar controls for model selection, creativity level, assistant mode, and document upload
-* Added clear chat functionality for better user experience
+The current app does not extract text from scanned-image PDFs. It handles one uploaded document at a time.
 
-## Assistant Modes
+## How document answers work
 
-The application includes multiple assistant modes:
+`upload → extract text → split into overlapping chunks → embed chunks → embed question → rank by cosine similarity → pass top chunks to chat model`
 
-* General Assistant
-* Coding Tutor
-* Resume Helper
-* SQL Interview Coach
-* Python Practice Coach
+Document text is sent to the OpenAI API for embeddings and retrieved chunks are sent as chat context. Use a non-sensitive sample document when trying the demo.
 
-Each mode uses a different system prompt, allowing the assistant to respond in a way that matches the selected use case.
+## Limitations and next steps
 
-## Tech Stack
+This is a small in-memory RAG demonstration, not a validated knowledge system. The interface does not display source citations or retrieval scores. It has no vector database, persistence, or documented answer-quality benchmark. The app asks the model to say when an answer is absent, but that prompt alone cannot guarantee grounded answers. Changing or re-uploading a document may leave earlier embeddings in session state; clear or rebuild them when switching documents.
 
-* Python
-* Streamlit
-* OpenAI API
-* OpenAI Embeddings
-* PyPDF
-* Python-dotenv
-* Cosine Similarity
-* Retrieval-Augmented Generation
-* Session State Management
+Next improvements: portable configuration, document-change invalidation, passage citations with page numbers, a small evaluation set with expected answers, and a deployment guide.
 
-## How It Works
+## Skills shown
 
-1. The user uploads a PDF or TXT document.
-2. The application extracts text from the uploaded file.
-3. The extracted text is split into smaller chunks.
-4. Embeddings are created for each document chunk.
-5. When the user asks a question, the question is also converted into an embedding.
-6. The app compares the question embedding with document chunk embeddings using cosine similarity.
-7. The most relevant chunks are selected.
-8. The selected chunks are passed to the AI model as document context.
-9. The assistant answers based on the retrieved document context.
-
-## Project Workflow
-Upload Document
-        ↓
-Extract Text
-        ↓
-Split Text into Chunks
-        ↓
-Create Embeddings
-        ↓
-User Asks Question
-        ↓
-Retrieve Relevant Chunks
-        ↓
-Send Context to OpenAI Model
-        ↓
-Generate Document-Based Answer
-
-## Skills Demonstrated
-
-This project demonstrates practical experience with:
-
-* AI chatbot development
-* Prompt engineering
-* OpenAI API integration
-* Embedding-based semantic search
-* Document Q&A
-* Retrieval-Augmented Generation
-* Python application development
-* Streamlit web app development
-* PDF text extraction
-* User interface design
-* Session state handling
-* Real-world problem solving
-
-## Future Improvements
-
-Possible future improvements include:
-
-* Add support for multiple document uploads
-* Store embeddings in a vector database
-* Add source citation for retrieved document chunks
-* Add login/user authentication
-* Deploy the application online
-* Improve UI layout and styling
-* Add downloadable chat history
-
-## Why I Built This Project
-
-I built this project to strengthen my practical understanding of AI-powered applications and document-based question answering. The project helped me understand how embeddings, semantic search, and RAG workflows can be combined to create useful AI tools for real-world use cases such as resume analysis, document summarization, interview preparation, and knowledge search.
-
-## Project Status
-
-Completed core version.
-
-The application currently supports chatbot interaction, assistant modes, document upload, text extraction, chunking, embeddings, semantic retrieval, and document-based responses.
+Python, Streamlit, PDF text extraction, OpenAI API integration, embeddings, similarity search, prompt design, and interactive application development.
